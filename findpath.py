@@ -28,19 +28,21 @@ class KioskMap(object):
         import ipdb; ipdb.set_trace()
 
         self.addr['distance'] = self.coordiate_dist(self.depot_coords, coordinate_to)
-
-        pass
+        import ipdb; ipdb.set_trace()
 
     def coordiate_dist(self, coord1, coord2):
         lat1, long1 = coord1
         lat2, long2 = coord2
         degrees_to_radians = math.pi/180.0
-
-        phi1 = (90.0 - lat1) * degrees_to_radians
-        phi2 = (90.0 - lat2) * degrees_to_radians
-
-        theta1 = long1 * degrees_to_radians
-        theta2 = long2 * degrees_to_radians
-
         import ipdb; ipdb.set_trace()
-        return coord1 + coord2
+        phi1 = (90.0 - float(lat1)) * degrees_to_radians
+        phi2 = (90.0 - float(lat2)) * degrees_to_radians
+
+        theta1 = float(long1) * degrees_to_radians
+        theta2 = float(long2) * degrees_to_radians
+
+        cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) + math.cos(phi1)*math.cos(phi2))
+
+        arc = math.acos(cos)
+
+        return arc
