@@ -1,5 +1,5 @@
 import pandas
-import numpy
+import numpy as np
 import math
 
 # our kitchen on Lake and Racine Ave (41.8851024,-87.6618988)
@@ -20,7 +20,7 @@ class KioskMap(object):
         df = df.sort_index()
         home_loc = df.loc[0]
         home_coords = (home_loc['latitude (N)'], home_loc['longitude (N)'])
-
+        import ipdb; ipdb.set_trace()
         return df, home_loc, home_coords
 
     def some_compute(self):
@@ -33,16 +33,12 @@ class KioskMap(object):
     def coordiate_dist(self, coord1, coord2):
         lat1, long1 = coord1
         lat2, long2 = coord2
-        degrees_to_radians = math.pi/180.0
+
+        earth_radius_km = 6371
         import ipdb; ipdb.set_trace()
-        phi1 = (90.0 - float(lat1)) * degrees_to_radians
-        phi2 = (90.0 - float(lat2)) * degrees_to_radians
+        r_lat1 = np.radians(lat1)
+        r_lat2 = np.radians(lat2)
+        r_long1 = np.radians(long1)
+        r_long2 = np.radians(long2)
 
-        theta1 = float(long1) * degrees_to_radians
-        theta2 = float(long2) * degrees_to_radians
-
-        cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) + math.cos(phi1)*math.cos(phi2))
-
-        arc = math.acos(cos)
-
-        return arc
+        return arc * 6371
